@@ -277,24 +277,21 @@ function rollIncrease(){
 	}
 	else if (roll1 > roll2){
 		rollIncreaseFlup(roll1);
-	// 	let roll2 = reRollOption();
-	// 	if (roll2  > roll1){
-	// 		console.log("you did it");
-	// 	}
-	// 	else if (roll2 < roll1){
-	// 		rollIncreaseFlup(roll1);
-	// 	}
-	// }
+
 	}
 }
 function rollIncreaseFlup(roll1){
 	let roll2 = reRollOption();
-	if (roll2 > roll1){
-			console.log("you did it");
-		}
-		else if (roll1 > roll2){
-			rollIncreaseFlup();
-		}
+	if (!roll2){
+		console.log(“Do not let circumstances control you. You change your circumstances.” You MUST re-roll);
+		rollIncreaseFlup();
+	}
+	else if (roll2 > roll1){
+		console.log("you did it");
+	}
+	else if (roll1 > roll2){
+		rollIncreaseFlup();
+	}
 }
 
 
