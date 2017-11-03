@@ -5,8 +5,20 @@ let rollCount8= [0];
 let rollCount10= [0];
 let rollCount12= [0];
 let rollCount20= [0];
+let finalRollAdd = [0];
+let rollCountTotal = getRollCountTotal(rollCount4, rollCount6, rollCount8, rollCount10, rollCount12, rollCount20);
 function runJackieChan(){
-rollIncrease();
+	// console.log("roll below 6");
+	// rollLow();
+	// console.log("roll a 3");
+	// roll3();
+	// console.log ("roll between 6 and 10");
+	// rollBetween();
+	// console.log("roll doubles");
+	// rollDoubles();
+	// console.log("roll 4 number that increase each time")
+	rollIncrease();
+// rollAbove(finalRollAdd, rollCountTotal);
 }
 
 
@@ -349,6 +361,18 @@ function rollIncreaseFourthFlup(roll3){
 		rollIncreaseFourthFlup(roll3);
 	}
 }
-function rollAbove(rollCountTotal){
-
+function rollAbove(rollCountTotal, finalRollAdd){
+	let roll1 = roll();
+	let rollTotal;
+	let finalTotal = [];
+	finalTotal += finalTotal.push(1);
+		for (i=0; i < rollCountTotal - 6; i++){
+			rollTotal += finalRollAdd[i];
+		}
+		if (rollTotal > "5"){
+			console.log("you won!");
+		}
+		else {
+			rollAbove(rollCountTotal, finalRollAdd);
+		}
 }
