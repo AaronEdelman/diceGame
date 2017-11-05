@@ -1,14 +1,15 @@
+runJackieChan();
 
-let rollCount4= [0];
-let rollCount6= [0];
-let rollCount8= [0];
-let rollCount10= [0];
-let rollCount12= [0];
-let rollCount20= [0];
-let finalRollAdd = [0];
-let finalRollArray = [0];
-// let rollCountTotal = getRollCountTotal(rollCount4, rollCount6, rollCount8, rollCount10, rollCount12, rollCount20);
+
 function runJackieChan(){
+	let rollCount4 = [0];
+	let rollCount6 = [0];
+	let rollCount8 = [0];
+	let rollCount10 = [0];
+	let rollCount12 = [0];
+	let rollCount20 = [0];
+	let finalRollAdd = [0];
+	let finalRollArray = [0];
 	let rollCount = getRollCountTotal(rollCount4, rollCount6, rollCount8, rollCount10, rollCount12, rollCount20);
 	console.log("roll below 6");
 	rollLow();
@@ -18,11 +19,11 @@ function runJackieChan(){
 	rollBetween();
 	console.log("roll doubles");
 	rollDoubles();
-	console.log("roll 4 number that increase each time")
+	console.log("roll 4 numbers that increase each time")
 	rollIncrease();
 	console.log("roll above 100");
 	rollAbove(finalRollArray);
-}
+
 
 
 function getRollCount4(rollCount4){
@@ -56,17 +57,20 @@ function getRollCountTotal(rollCount4, rollCount6, rollCount8, rollCount10, roll
 
 function roll (){
 	let diceSelect = getRoll();
-	while (diceSelect !=="4" && diceSelect !=="6" && diceSelect !=="8" && diceSelect !=="10" && diceSelect !=="12" && diceSelect !=="20"){
-		console.log("Please enter 4, 6, 8, 10, 12, or 20");
+	while (diceSelect !=="4" && diceSelect !=="6" && diceSelect !=="8" && diceSelect !=="10" && diceSelect !=="12" && diceSelect !=="20" && diceSelect !=="end"){
+		console.log("Please enter 4, 6, 8, 10, 12, 20 or end");
 		diceSelect = getRoll();
 	}
 	let rollCount = getRollCountTotal(rollCount4, rollCount6, rollCount8, rollCount10, rollCount12, rollCount20);
-	if (rollCount >=42){
+	if (rollCount >=48){
 		console.log("no more rolls. you lose");
-		// break;
+		endgame();
 	}
 	else{
-		if (diceSelect === "4"){
+		if (diceSelect === "end"){
+			endGame();
+		}
+		else if (diceSelect === "4"){
 		let roll = getRoll4(rollCount4);
 		return roll;
 		}
@@ -75,22 +79,18 @@ function roll (){
 		return roll;
 		}
 		else if (diceSelect === "8"){
-		rollCount8 = getRollCount8(rollCount8);
 		let roll = getRoll8(diceSelect, rollCount8);
 		return roll;
 		}
 		else if (diceSelect === "10"){
-		rollCount10 = getRollCount10(rollCount10);
 		let roll = getRoll10(diceSelect, rollCount10);
 		return roll;
 		}
 		else if (diceSelect === "12"){
-		rollCount12 = getRollCount12(rollCount12);
 		let roll = getRoll12(diceSelect, rollCount12);
 		return roll;
 		}
 		else if (diceSelect === "20"){
-		rollCount20 = getRollCount20(rollCount20);
 		let roll = getRoll20(diceSelect, rollCount20);
 		return roll;
 		}
@@ -142,6 +142,7 @@ function getRoll8(diceSelect, rollCount8) {
 	if (rollCount8.length < rollNumber){
     let roll8 = Math.floor(Math.random() * ((8 - 1) + 1) + 1);
     console.log("You rolled a " + roll8);
+    rollCount8 = getRollCount8(rollCount8);
     return roll8;
     }
     else if (rollCount8.length >= rollNumber){
@@ -159,6 +160,7 @@ function getRoll10(diceSelect, rollCount10) {
 	if (rollCount10.length < rollNumber){
     let roll10 = Math.floor(Math.random() * ((10 - 1) + 1) + 1);
     console.log("You rolled a " + roll10);
+    rollCount10 = getRollCount10(rollCount10);
     return roll10;
     }
     else if (rollCount10.length >= rollNumber){
@@ -176,6 +178,7 @@ function getRoll12(diceSelect, rollCount12) {
 	if (rollCount12.length < rollNumber){
     let roll12 = Math.floor(Math.random() * ((12 - 1) + 1) + 1);
     console.log("You rolled a " + roll12);
+    rollCount12 = getRollCount12(rollCount12);
     return roll12;
     }
     else if (rollCount12.length >= rollNumber){
@@ -193,6 +196,7 @@ function getRoll20(diceSelect, rollCount20) {
 	if (rollCount20.length < rollNumber){
     let roll20 = Math.floor(Math.random() * ((20 - 1) + 1) + 1);
     console.log("You rolled a " + roll20);
+    rollCount20 = getRollCount20(rollCount20);
     return roll20;
     }
     else if (rollCount20.length >= rollNumber){
@@ -206,45 +210,42 @@ function getRoll20(diceSelect, rollCount20) {
     }    
 }
 function reRollOption(){
-	let reRoll = true;
-	while (reRoll === true){
-		let rollQuestion = prompt("would you like to re-roll?");
-		if (rollQuestion === "y" || rollQuestion === "Y" || rollQuestion === "Yes" || rollQuestion === "yes"){
-			reRoll = false;
+	// let reRoll = true;
+	// while (reRoll === true){
+	// 	let rollQuestion = prompt("would you like to re-roll?");
+	// 	if (rollQuestion === "y" || rollQuestion === "Y" || rollQuestion === "Yes" || rollQuestion === "yes"){
+	// 		reRoll = false;
 			let roll1 = roll();
 			return roll1;
-		}
-		else {
-			reRoll = false;
-		}
-	}
+	// 	}
+	// 	else {
+	// 		reRoll = false;
+	// 	}
+	// }
 }
-runJackieChan();
 
 function rollLow(){
 	let roll1 = roll();
-	if (roll1 > 6){
+	if (roll1 < 6){
 		console.log("you did it");
 	}
-	else if (roll1 < 6){
-	let roll1 = reRollOption();
-		if (roll1 > 6){
-			console.log("you did it");
-		}
-		else if (roll1 < 6){
-			rollLowFlup();
-		}
-
+	else if (roll1 >= 6){
+	rollLowFlup();
 	}
 }
 function rollLowFlup(){
 	let roll1 = reRollOption();
-	if (roll1 > 6){
-			console.log("you did it");
-		}
-		else if (roll1 < 6){
-			rollLowFlup();
-		}
+	// if (!roll1){
+	// 	console.log("you have to re-roll");
+	// 	rollLowFlup();
+	// }
+	// else 
+	if (roll1 < 6){
+		console.log("you did it");
+	}
+	else if (roll1 > 6){
+		rollLowFlup();
+	}
 }
 function roll3(){
 	let roll1 = roll();
@@ -252,23 +253,21 @@ function roll3(){
 		console.log("you did it");
 	}
 	else if (roll1 !==3){
-		let roll1 = reRollOption();
-		if (roll1 === 3){
-			console.log("you did it");
-		}
-		else if (roll1 !== 3){
-			roll3Flup();
-		}
+		roll3Flup();
 	}
 }
 function roll3Flup(){
 	let roll1 = reRollOption();
-	if (roll1 === 3){
-			console.log("you did it");
-		}
-		else if (roll1 !==3){
-			roll3Flup();
-		}
+	if (!roll1){
+		console.log("you have to re-roll");
+		roll3Flup();
+	}
+	else if (roll1 === 3){
+		console.log("you did it");
+	}
+	else if (roll1 !==3){
+		roll3Flup();
+	}
 }
 function rollBetween(){
 	let roll1 = roll();
@@ -276,58 +275,58 @@ function rollBetween(){
 		console.log("you did it");
 	}
 	else if (roll1 < 6 || roll1 > 10){
-		let roll1 = reRollOption();
-		if (roll1 > 6 && roll1 < 10){
-			console.log("you did it");
-		}
-		else if (roll1 < 6 || roll1 > 10){
 			rollBetweenFlup();
-		}
+	
 	}
 }
 function rollBetweenFlup(){
 	let roll1 = reRollOption();
-	if (roll1 > 6 && roll1 < 10){
-			console.log("you did it");
-		}
-		else if (roll1 < 6 || roll1 > 10){
-			rollBetweenFlup();
-		}
+	if (!roll1){
+		console.log("you must re-roll");
+		rollBetweenFlup();
+	}
+	else if (roll1 > 6 && roll1 < 10){
+		console.log("you did it");
+	}
+	else if (roll1 < 6 || roll1 > 10){
+		rollBetweenFlup();
+	}
 }
 function rollDoubles(){
 	let roll1 = roll();
+	console.log("Number one:"+ roll1);
 	let roll2 = roll();
 	if (roll1 === roll2){
-		console.log("you did it");
+		console.log("Number two:"+ roll2);
 	}
 	else if (roll1 !== roll2){
-		let roll2 = reRollOption();
-		if (roll1 === roll2){
-			console.log("you did it");
-		}
-		else if (roll1 !== roll2){
-			rollDoublesFlup(roll1);
-		}
+		rollDoublesFlup(roll1);
 	}
 }
 function rollDoublesFlup(roll1){
 	let roll2 = reRollOption();
-	if (roll1 === roll2){
-			console.log("you did it");
-		}
-		else if (roll1 !== roll2){
-			rollDoublesFlup();
-		}
+	if (!roll2){
+		console.log("you must re-roll");
+		rollDoublesFlup(roll1);
+	}
+	else if (roll1 === roll2){
+		console.log("Number one:"+ roll1);
+	}
+	else if (roll1 !== roll2){
+		rollDoublesFlup(roll1);
+	}
 }
 function rollIncrease(){
 	let roll1 = roll();
+	console.log("Number One:" + roll1)
 	let change = prompt("Would you like to change your first roll?");
 	if (change === "y" || change === "Y" || change === "Yes" || change === "yes"){
 	roll1 = reRollOption();
+	console.log("Number one changed to:" + roll1);
 	}
 	let roll2 = roll();
 	if (roll2 > roll1){
-		console.log("you did it");
+		console.log("Number two:" + roll2);
 		rollIncreaseThird(roll2);
 	}
 	else if (roll1 >= roll2){
@@ -343,7 +342,7 @@ function rollIncreaseFlup(roll1){
 
 	}
 	else if (roll1 < roll2){
-		console.log("you did it");
+		console.log("Number 2:"+ roll2);
 		rollIncreaseThird(roll2);
 	}
 	else if (roll1 >= roll2){
@@ -353,7 +352,7 @@ function rollIncreaseFlup(roll1){
 function rollIncreaseThird(roll2){
 	let roll3 = roll();
 	if (roll3 > roll2){
-		console.log("you did it");
+		console.log("Number 3:"+ roll3);
 		rollIncreaseFourth(roll3);
 	}
 	else if (roll2 >= roll3){
@@ -368,7 +367,7 @@ function rollIncreaseThirdFlup(roll2){
 
 	}
 	else if (roll2 < roll3){
-		console.log("you did it");
+		console.log("Number 3:"+ roll3);
 		rollIncreaseFourth(roll3);
 	}
 	else if (roll2 >= roll3){
@@ -378,7 +377,7 @@ function rollIncreaseThirdFlup(roll2){
 function rollIncreaseFourth(roll3){
 	let roll4 = roll();
 	if (roll4 > roll3){
-		console.log("you did it");
+		console.log("Roll 4:"+ roll4);
 	}
 	else if (roll3 >= roll4){
 		rollIncreaseFourthFlup(roll3);
@@ -392,7 +391,7 @@ function rollIncreaseFourthFlup(roll3){
 
 	}
 	else if (roll3 < roll4){
-		console.log("you did it");
+		console.log("Roll 4:"+ roll4);
 	}
 	else if (roll3 >= roll4){
 		rollIncreaseFourthFlup(roll3);
@@ -408,8 +407,10 @@ function rollAbove(finalRollArray){
 		}
 		if (rollTotal > "100"){
 			console.log("you won!");
+			endGame();
 		}
 		else {
 			rollAbove(finalRollArray);
 		}
+}
 }
